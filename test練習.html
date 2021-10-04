@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>累加符號在計數器以及清除計數器</title>
+
+</head>
+<body>
+
+    <div id="calchidden">
+        <div id="count"> </div>
+        <div id="icon"> </div>
+        <button onclick="start()">請點我</button>
+        <button onclick="clean()">清空頁面</button>
+    </div>
+
+    <div id="show">
+        <label >你好,</label>
+        <label id="hello"></label>
+        <input type="text" id="hellotext"> 
+        <button onclick="changestring()">變更文字</button>
+        <button onclick="cleanstring()">清空文字</button>
+        <button onclick="Re()">重新</button>
+    </div>
+
+    <script>
+        var startcalc; 
+        var i = 0; //累加用
+        
+        document.getElementById("show").style.display="none";
+        function clean(){
+            i = 0;//數字歸零
+            clearInterval(startcalc); //停止調用函數 
+            document.getElementById("icon").innerHTML  =""; //清空 icon div
+            document.getElementById("count").innerHTML =""; //清空 count div
+
+        }
+
+        function calc(){
+            document.getElementById("icon").innerHTML += "* "; //  += 累加星號
+            document.getElementById("count").innerHTML = i; /* 把文字貼上到 div id 為 count  */
+            i++; 
+            if(i == 101 ){ // 一個 = 是給值 二個 == 是判斷 
+                i = 0; // i算到101時 i歸0
+                document.getElementById("calchidden").style.display="none"; //影藏div
+                document.getElementById("show").style.display=""; //顯現div
+                stopcalc(); //停止時間計算
+            }
+        }
+        
+        function start() { //開始計算
+            startcalc = setInterval(calc, 100)// 不停地調用calc函數 每0.1秒觸發
+        }
+
+        function stopcalc() {
+            clearInterval(startcalc); //停止調用函數 
+        }
+
+        function changestring(){
+          var x = document.getElementById("hellotext").value;
+          document.getElementById("hello").innerHTML = x;
+
+        }
+
+        function cleanstring(){
+            document.getElementById("hellotext").value = "";//清空input
+            document.getElementById("hello").innerHTML = "";//清空畫面文字
+        }
+
+        function Re(){
+            document.getElementById("show").style.display="none"; //影藏div
+            document.getElementById("calchidden").style.display="";//顯示div
+            document.getElementById("count").innerHTML = ""; //清空數字
+            document.getElementById("icon").innerHTML = "";//清空*
+
+        }
+
+    </script>
+</body>
+</html>
